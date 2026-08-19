@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f2f2f0;
+  --foreground: #121210;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
+
+  --shadow-control: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 1px rgba(15, 23, 42, 0.04);
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 16px 32px -12px rgba(15, 23, 42, 0.12);
+  --shadow-hero: 0 2px 4px rgba(15, 23, 42, 0.05), 0 24px 48px -16px rgba(15, 23, 42, 0.18);
+  --shadow-float: 0 -4px 20px rgba(15, 23, 42, 0.08);
+  --shadow-inset-control: inset 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-glow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 20px 48px -12px rgba(0, 0, 0, 0.55);
+
+  /* Reemplaza el "teal" original por un verde vívido tipo Pilo: el mismo
+     nombre de utilidad (bg-teal-600, text-teal-700, ring-teal-600/10,
+     focus-visible:outline-teal-600, etc.) ya se usa como ÚNICO acento de
+     marca en toda la app, así que redefinir la rampa retematiza todo sin
+     tocar className en cada componente. teal-600/700 están calibrados para
+     mantener ≥4.5:1 de contraste con texto blanco encima (WCAG AA).
+  */
+  --color-teal-50: #edfbf1;
+  --color-teal-100: #d2f5dd;
+  --color-teal-200: #a6ecbf;
+  --color-teal-300: #71de9e;
+  --color-teal-400: #22d46b;
+  --color-teal-500: #14b85c;
+  --color-teal-600: #0c8a45;
+  --color-teal-700: #096f38;
+  --color-teal-800: #0a582e;
+  --color-teal-900: #0a4726;
+  --color-teal-950: #042a17;
+
+  /* Reemplaza "slate" por un grafito neutro (casi negro en 900/950,
+     off-white en 50): mismo criterio, un solo lugar retematiza cards,
+     textos, bordes y fondos en toda la app.
+  */
+  --color-slate-50: #f2f2f0;
+  --color-slate-100: #e6e6e2;
+  --color-slate-200: #d1d1cb;
+  --color-slate-300: #afafa7;
+  --color-slate-400: #8a8a82;
+  --color-slate-500: #6b6b64;
+  --color-slate-600: #52524c;
+  --color-slate-700: #3c3c37;
+  --color-slate-800: #272724;
+  --color-slate-900: #191917;
+  --color-slate-950: #121210;
+
+  /* Escala nueva (namespace propio, no pisa ningún color existente): verde
+     lima usado específicamente en el rediseño de Inicio a partir del mockup
+     aprobado (senda-home-reference.png). No reemplaza "teal" para no
+     alterar visualmente ninguna otra pantalla que ya usa esa rampa.
+  */
+  --color-lime-50: #f7ffde;
+  --color-lime-100: #eeffb8;
+  --color-lime-200: #dffa82;
+  --color-lime-300: #ccf54d;
+  --color-lime-400: #b7ed16;
+  --color-lime-500: #a0d400;
+  --color-lime-600: #86b300;
+  --color-lime-700: #6b8f00;
+  --color-lime-800: #547000;
+  --color-lime-900: #445b00;
+  --color-lime-950: #253200;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---------------------------------------------------------------------
+   Escala tipográfica de SENDA. Un solo lugar define tamaño/peso/tracking
+   por rol; los componentes combinan `text-h1` + un color utility (p.ej.
+   `text-h1 text-slate-950`) en vez de repetir strings largos sueltos.
+   --------------------------------------------------------------------- */
+@utility text-display {
+  font-size: 2.375rem;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+@utility text-h1 {
+  font-size: 1.625rem;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+@utility text-h2 {
+  font-size: 1.1875rem;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+@utility text-h3 {
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+@utility text-body {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+@utility text-body-sm {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+@utility text-caption {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+@utility text-label {
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------------
+   Reskin de los controles NATIVOS de Leaflet (zoom, popups, atribución).
+   Leaflet los pinta con su propia UI genérica por defecto — esto los
+   integra al sistema visual de SENDA en las tres pantallas con mapa
+   (/ruta, /reportes, /reportar) sin tocar ninguna lógica de mapa.
+   --------------------------------------------------------------------- */
+.leaflet-control-zoom {
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.leaflet-control-zoom a {
+  display: block;
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  background: #ffffff !important;
+  color: var(--color-slate-950) !important;
+  font-size: 18px !important;
+  font-weight: 600;
+  border: none !important;
+  border-radius: 0.9rem !important;
+  box-shadow: var(--shadow-hero);
+  transition: background-color 0.15s ease;
+}
+
+.leaflet-control-zoom a:first-child {
+  margin-bottom: 8px;
+}
+
+.leaflet-control-zoom a:hover {
+  background: var(--color-slate-50) !important;
+  color: var(--color-lime-600) !important;
+}
+
+.leaflet-touch .leaflet-control-zoom {
+  border: none;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 1.25rem !important;
+  box-shadow: var(--shadow-hero) !important;
+  padding: 2px;
+}
+
+.leaflet-popup-content {
+  margin: 12px 14px !important;
+}
+
+.leaflet-popup-tip-container {
+  filter: drop-shadow(0 6px 6px rgba(15, 23, 42, 0.06));
+}
+
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(4px);
+  border-radius: 0.5rem 0 0 0 !important;
+  font-size: 10px !important;
+  color: var(--color-slate-500) !important;
+  padding: 2px 6px !important;
+}
