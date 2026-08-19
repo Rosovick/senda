@@ -13,7 +13,7 @@ import UserSummaryCard from "./UserSummaryCard";
 // persistidos en localStorage). Todo lo que depende de ese estado vive acá
 // para no tener que levantarlo hasta la página.
 export default function ProfileScreen() {
-  const { profile } = useUserProfile();
+  const { profile, displayName } = useUserProfile();
   const {
     routeNeedPreferences,
     toggleRouteNeedPreference,
@@ -35,7 +35,7 @@ export default function ProfileScreen() {
 
   return (
     <>
-      <UserSummaryCard profile={profile} isPersonalized={isPersonalized} />
+      <UserSummaryCard profile={profile} displayName={displayName} isPersonalized={isPersonalized} />
       <RoutePreferencesSection
         needPreferences={routeNeedPreferences}
         onToggleNeed={toggleRouteNeedPreference}

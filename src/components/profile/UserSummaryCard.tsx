@@ -5,18 +5,20 @@ import type { UserProfileData } from "@/hooks/useUserProfile";
 
 type UserSummaryCardProps = {
   profile: UserProfileData;
+  // Ya calculado por useUserProfile (única fuente del fallback "Usuario
+  // anónimo"): esta card no vuelve a decidir por su cuenta qué mostrar
+  // cuando no hay nombre configurado.
+  displayName: string;
   isPersonalized: boolean;
 };
 
-export default function UserSummaryCard({ profile, isPersonalized }: UserSummaryCardProps) {
-  const displayName = profile.preferredName.trim() || profile.name.trim() || "Tu usuario";
-
+export default function UserSummaryCard({ profile, displayName, isPersonalized }: UserSummaryCardProps) {
   return (
     <section className="rounded-3xl border border-slate-200/70 bg-white p-6 shadow-card sm:p-7">
       <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex items-start gap-4">
           <div className="relative h-20 w-20 shrink-0">
-            <UserAvatarView name={profile.name} avatar={profile.avatar} className="h-20 w-20" />
+            <UserAvatarView name={displayName} avatar={profile.avatar} className="h-20 w-20" />
             <span className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-white bg-teal-500 text-white shadow-control">
               <CameraIcon className="h-3.5 w-3.5" />
             </span>

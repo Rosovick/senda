@@ -5,9 +5,9 @@ import UserAvatarView from "@/components/UserAvatarView";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { ChevronRightIcon, SlidersIcon } from "./icons";
 
-// El saludo usa el perfil persistido localmente (ver useUserProfile): no hay
-// un nombre fijo de la app, "Sofía" es solo el valor de referencia inicial
-// hasta que exista una cuenta real.
+// El saludo usa el perfil persistido localmente (ver useUserProfile): nunca
+// un nombre fijo de la app — sin nombre configurado, displayName ya resuelve
+// a "Usuario" por su cuenta.
 export default function ProfileCard() {
   const { profile, displayName } = useUserProfile();
 
@@ -15,7 +15,7 @@ export default function ProfileCard() {
     <section className="flex flex-wrap items-center gap-4 sm:justify-between sm:gap-6">
       <div className="flex w-full items-center gap-4 sm:w-auto sm:gap-6">
         <UserAvatarView
-          name={profile.name}
+          name={displayName}
           avatar={profile.avatar}
           className="h-[68px] w-[68px] shrink-0 text-2xl sm:h-[124px] sm:w-[124px] sm:text-4xl"
         />

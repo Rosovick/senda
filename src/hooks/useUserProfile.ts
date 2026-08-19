@@ -32,12 +32,14 @@ export type UserProfileData = {
   avatar: UserAvatar;
 };
 
-// Mock/local temporal para poder visualizar el diseño: no es un dato fijo de
-// la app, es solo el valor inicial hasta que haya cuenta y base de datos.
+// Perfil vacío por defecto: nadie tiene un nombre hasta que lo configura en
+// /perfil/editar. Nunca se hardcodea un nombre de persona acá — "Usuario
+// anónimo" (ver displayName, abajo) es el único texto fijo, y solo se usa
+// como reemplazo mientras no haya nombre real.
 export const DEFAULT_USER_PROFILE: UserProfileData = {
-  name: "Sofía Rojas",
-  preferredName: "Sofía",
-  city: "Salta, Argentina",
+  name: "",
+  preferredName: "",
+  city: "",
   avatar: { type: "initials" },
 };
 
@@ -59,7 +61,10 @@ export function useUserProfile() {
     [setProfile]
   );
 
-  const displayName = profile.preferredName.trim() || profile.name.trim() || "Tu usuario";
+  // Única fuente de este fallback: cualquier pantalla que muestre el
+  // nombre de la persona (Inicio, /perfil) usa este `displayName`, nunca
+  // recalcula su propio "si no hay nombre, mostrar X".
+  const displayName = profile.preferredName.trim() || profile.name.trim() || "Usuario";
 
   return { profile, saveProfile, displayName, isLoaded };
 }
