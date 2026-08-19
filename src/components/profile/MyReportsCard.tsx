@@ -77,21 +77,21 @@ export default function MyReportsCard({ signals }: MyReportsCardProps) {
           </Link>
         </div>
       ) : (
-        <div className="mt-4 flex items-center gap-3 rounded-2xl bg-white px-4 py-4 shadow-control">
+        <div className="mt-4 flex flex-col items-center gap-3 rounded-2xl bg-white px-4 py-5 text-center shadow-control sm:flex-row sm:items-center sm:text-left">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange-50 text-orange-500">
             <ClipboardIcon className="h-5 w-5" />
           </span>
-          <div className="min-w-0 flex-1">
+          <div className="w-full min-w-0 flex-1">
             <p className="text-sm font-semibold text-slate-800">
               Todavía no creaste ninguna señalización
             </p>
             <p className="mt-0.5 text-xs text-slate-500">
-              Cuando crees una señalización, aparecerá acá el estado.
+              Cuando crees una señalización, aparecerá acá junto a su estado.
             </p>
           </div>
           <Link
             href="/reportar"
-            className="inline-flex shrink-0 items-center gap-1 rounded-2xl py-1 text-sm font-semibold text-orange-600 transition hover:text-orange-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+            className="flex w-full shrink-0 items-center justify-center gap-1.5 rounded-2xl bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-control transition hover:bg-orange-600 hover:shadow-card active:scale-[0.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 sm:w-auto"
           >
             Crear señalización
             <ChevronRightIcon className="h-4 w-4" />
